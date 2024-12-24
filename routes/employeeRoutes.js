@@ -1,20 +1,21 @@
 import express from "express";
 import { createemployee, deleteemployeebyid, getallemployee, getemployeebyid, loginactionpage, registeractionpage, updateemployeebyid } from "../controller/employeecontroller.js";
+import { ensureAuthenticated } from "../middlewares/auth.js";
 
 
 const userroute = express.Router();
 const registerroute = express.Router();
 const loginroute = express.Router();
 
-userroute.get('/', getallemployee)
+userroute.get('/',ensureAuthenticated, getallemployee)
 
-userroute.post('/', createemployee)
+userroute.post('/',ensureAuthenticated,  createemployee)
 
-userroute.put('/:id', updateemployeebyid)
+userroute.put('/:id',ensureAuthenticated, updateemployeebyid)
 
-userroute.get('/:id', getemployeebyid )
+userroute.get('/:id',ensureAuthenticated, getemployeebyid )
 
-userroute.delete('/:id', deleteemployeebyid )
+userroute.delete('/:id',ensureAuthenticated, deleteemployeebyid )
 
 registerroute.post('/',registeractionpage)
 
